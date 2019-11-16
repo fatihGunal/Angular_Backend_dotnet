@@ -347,4 +347,8 @@ healthchecksdb
 MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
+<<<<<<< HEAD
 .ionide/
+=======
+.ionide/
+>>>>>>> bdce43ee9555aa41000f8f400dfdc6a0b6875ff4
