@@ -108,9 +108,9 @@ namespace Angular_project_backend
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Member API v1");
             });
-            app.UseAuthentication();
+            
             app.UseCors("MyPolicy");
-
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
 

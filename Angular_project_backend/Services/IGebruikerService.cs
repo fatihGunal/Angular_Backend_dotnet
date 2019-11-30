@@ -8,6 +8,6 @@ namespace Angular_project_backend.Services
 {
     public interface IGebruikerService
     {
-        Gebruiker Authenticate(string Email, string Gebruikersnaam);
+        Gebruiker Authenticate(string Gebruikersnaam, string Wachtwoord);
     }
 }

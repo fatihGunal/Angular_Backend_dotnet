@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Angular_project_backend.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Angular_project_backend.Controllers
 {
@@ -82,6 +83,7 @@ namespace Angular_project_backend.Controllers
         }
 
         // POST: api/Antwoord
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostAntwoord([FromBody] Antwoord antwoord)
         {

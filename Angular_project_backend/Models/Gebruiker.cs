@@ -19,8 +19,9 @@ namespace Angular_project_backend.Models
         public virtual ICollection<Vriendschap> GebruikersEen { get; set; }
         [InverseProperty("GebruikerTwee")]
         public virtual ICollection<Vriendschap> GebruikersTwee { get; set; }
-
+        
         public ICollection<Stem> Stemmen { get; set; }
         public ICollection<PollGebruiker> PollGebruikers { get; set; }
+        public ICollection<Poll> Polls { get; set; }
     }
 }
