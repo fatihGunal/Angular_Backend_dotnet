@@ -166,7 +166,7 @@ namespace Angular_project_backend.Controllers
             }
 
             var poll = await _context.Polls
-                .Include(p => p.Antwoorden).Select(p => 
+                .Include(p => p.Antwoorden).Select(p =>
                     new Poll()
                     {
                         PollID = p.PollID,
@@ -174,7 +174,8 @@ namespace Angular_project_backend.Controllers
                         Beschrijving = p.Beschrijving,
                         AanmaakDatum = p.AanmaakDatum,
                         GebruikerID = p.GebruikerID,
-                        Antwoorden = p.Antwoorden
+                        Antwoorden = p.Antwoorden,
+                        Gebruiker = p.Gebruiker
                     }).SingleAsync(p => p.PollID == id);
 
             if (poll == null)
