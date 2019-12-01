@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Angular_project_backend.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Angular_project_backend.Controllers
 {
@@ -115,6 +116,67 @@ namespace Angular_project_backend.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(stem);
+        }
+        
+        [Authorize]
+        [HttpGet("getAllStemWithAntwoordWithPoll")]
+        public async Task<IActionResult> getAllStemWithAntwoordWithPoll()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var stemmen = await _context.Stemmen
+                .Include(s => s.Antwoord).Select(s =>
+                    new Stem()
+                    {
+                        StemID = s.StemID,
+                        Antwoord = s.Antwoord,
+                        GebruikerID = s.GebruikerID,
+                        PollID = s.PollID
+                    }).ToListAsync();
+            //var stemmen = await _context.Stemmen
+            //    .Include(s => s.Antwoord)
+            //    .Where(s => s.GebruikerID == id).ToListAsync();
+
+            if (stemmen == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(stemmen);
+        }
+
+        [Authorize]
+        [HttpGet("getAllStemWithAntwoordWithPollByGebruiker/{id}")]
+        public async Task<IActionResult> getAllStemWithAntwoordWithPollByGebruiker([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var stemmen = await _context.Stemmen
+                .Include(s => s.Antwoord).Select(s =>
+                    new Stem()
+                    {
+                        StemID = s.StemID,
+                        Antwoord = s.Antwoord,
+                        GebruikerID = s.GebruikerID,
+                        PollID = s.PollID
+                    })
+                    .Where(s => s.GebruikerID == id).ToListAsync();
+            //var stemmen = await _context.Stemmen
+            //    .Include(s => s.Antwoord)
+            //    .Where(s => s.GebruikerID == id).ToListAsync();
+
+            if (stemmen == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(stemmen);
         }
 
         private bool StemExists(int id)

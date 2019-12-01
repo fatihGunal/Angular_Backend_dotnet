@@ -119,6 +119,60 @@ namespace Angular_project_backend.Controllers
             return Ok(antwoord);
         }
 
+        // GET: api/antwoorden/5
+        [Authorize]
+        [HttpGet("getAntwoordenWithStemmen/{id}")]
+        public async Task<IActionResult> getAntwoordenWithStemmen([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var antwoorden = await _context.Antwoorden
+                .Include(a => a.Stemmen).Select(a =>
+                    new Antwoord()
+                    {
+                        AntwoordID = a.AntwoordID,
+                        AntwoordPoll = a.AntwoordPoll,
+                        PollID = a.PollID,
+                        Stemmen = a.Stemmen
+                    }).Where(p => p.PollID == id).ToListAsync();
+
+            if (antwoorden == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(antwoorden);
+        }
+
+        [Authorize]
+        [HttpGet("getAllAntwoordenWithStemmenByPollID")]
+        public async Task<IActionResult> getAllAntwoordenWithStemmenByPollID()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var antwoorden = await _context.Antwoorden
+                .Include(a => a.Stemmen).Select(a =>
+                    new Antwoord()
+                    {
+                        AntwoordID = a.AntwoordID,
+                        AntwoordPoll = a.AntwoordPoll,
+                        PollID = a.PollID,
+                        Stemmen = a.Stemmen
+                    }).ToListAsync();
+
+            if (antwoorden == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(antwoorden);
+        }
         private bool AntwoordExists(int id)
         {
             return _context.Antwoorden.Any(e => e.AntwoordID == id);

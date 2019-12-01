@@ -17,5 +17,6 @@ namespace Angular_project_backend.Models
         public ICollection<Antwoord> Antwoorden { get; set; }
         public ICollection<PollGebruiker> PollGebruikers { get; set; }
         public Gebruiker Gebruiker { get; set; }
+        public ICollection<Stem> Stemmen { get; set; }
     }
 }

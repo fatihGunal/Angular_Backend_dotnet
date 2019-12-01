@@ -25,7 +25,7 @@ namespace Angular_project_backend.Services
 
         public Gebruiker Authenticate(string gebruikersnaam, string wachtwoord)
         {
-            var gebruiker = _apiContext.Gebruikers.SingleOrDefault(x => x.Gebruikersnaam == gebruikersnaam && x.Wachtwoord == wachtwoord);
+            var gebruiker = _apiContext.Gebruikers.SingleOrDefault(x => x.Email == gebruikersnaam && x.Wachtwoord == wachtwoord);
 
             if (gebruiker == null)
             {
